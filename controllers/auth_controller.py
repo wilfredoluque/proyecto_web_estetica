@@ -12,7 +12,7 @@ import pathlib
 import os
 
 auth_bp = Blueprint('auth', __name__, url_prefix="/auth")
-
+"""
 # Permitir HTTP en local
 os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 
@@ -38,7 +38,7 @@ flow = Flow.from_client_secrets_file(
     ],
     redirect_uri="http://localhost:5000/auth/google/callback"
 )
-
+"""
 # ============================================
 # 🔵 LOGIN CON GOOGLE
 # ============================================
