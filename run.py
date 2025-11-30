@@ -24,7 +24,7 @@ app.secret_key = "clave_super_secreta"  # Clave necesaria para sesiones y cookie
 # ---------------------------------------------------------
 # Permite usar HTTP en lugar de HTTPS para pruebas locales
 os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
-GOOGLE_CLIENT_SECRETS = "core/google_client.json"
+GOOGLE_CLIENT_SECRETS = "/etc/secrets/core/google_client.json"
 
 # Flujo de autenticación con Google
 # Aquí se cargan los datos del cliente y los permisos
