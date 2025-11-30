@@ -1,46 +1,16 @@
 """
-run.py
------------------------------------------
-Archivo principal del proyecto Flask.
-Aquí se inicializa la aplicación, la base
-de datos, los blueprints y la configuración
-general del sistema.
-Autor: Wilfredo
-Proyecto: Sistema de Gestión — Defensa Final
------------------------------------------
+run.py — Archivo principal del sistema
+Proyecto Estética — Wilfredo
 """
+
+import os
 from flask import Flask, request, render_template
 from config.settings import Config
 from core.database import db
-from google_auth_oauthlib.flow import Flow
-import os
 from datetime import datetime
-# Instancia base de Flask
-app = Flask(__name__)
-app.secret_key = "clave_super_secreta"  # Clave necesaria para sesiones y cookies
 
 # ---------------------------------------------------------
-# CONFIGURACIÓN GOOGLE AUTH (Modo desarrollo)
-# ---------------------------------------------------------
-# Permite usar HTTP en lugar de HTTPS para pruebas locales
-os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
-GOOGLE_CLIENT_SECRETS = "/etc/secrets/core/google_client.json"
-
-# Flujo de autenticación con Google
-# Aquí se cargan los datos del cliente y los permisos
-flow = Flow.from_client_secrets_file(
-    GOOGLE_CLIENT_SECRETS,
-    scopes=[
-        "https://www.googleapis.com/auth/userinfo.email",
-        "https://www.googleapis.com/auth/userinfo.profile",
-        "openid"
-    ],
-    redirect_uri="http://localhost:5000/auth/google/callback"
-)
-
-# ---------------------------------------------------------
-# IMPORTACIÓN DE BLUEPRINTS
-# Cada módulo controla una parte del proyecto (separación lógica)
+# BLUEPRINTS
 # ---------------------------------------------------------
 from controllers.auth_controller import auth_bp
 from controllers.usuario_controller import usuario_bp
@@ -56,19 +26,19 @@ from controllers.productividad_controller import productividad_bp
 from controllers.historial_cliente_controller import historial_bp
 
 
+def create_app():
 
-def create_app():#Función fábrica de Flask.Aquí se configura la app completa:Configuración generalBase de datosRegistro de blueprintsFunciones globales para templates
     app = Flask(__name__)
     app.config.from_object(Config)
 
-    # --------------------------------------------
-    # Inicializar conexión con la base de datos
-    # --------------------------------------------
+    # ---------------------------
+    # BASE DE DATOS
+    # ---------------------------
     db.init_app(app)
 
-    # --------------------------------------------
-    # Registrar todos los Blueprints del sistema
-    # --------------------------------------------
+    # ---------------------------
+    # REGISTRO DE BLUEPRINTS
+    # ---------------------------
     app.register_blueprint(auth_bp)
     app.register_blueprint(usuario_bp)
     app.register_blueprint(cliente_bp)
@@ -82,36 +52,68 @@ def create_app():#Función fábrica de Flask.Aquí se configura la app completa:
     app.register_blueprint(productividad_bp)
     app.register_blueprint(historial_bp)
 
-    # ---------------------------------------------------------
+    # ---------------------------
+    # GOOGLE AUTH CONFIG — FINAL
+    # ---------------------------
+    @app.before_request
+    def load_google_flow():
+        from google_auth_oauthlib.flow import Flow
+
+        # Archivo secreto dentro de Render
+        GOOGLE_CLIENT_SECRETS = "/etc/secrets/google_client.json"
+
+        if not os.path.exists(GOOGLE_CLIENT_SECRETS):
+            print("⚠ ERROR: google_client.json NO existe en Render")
+            return
+
+        # Permitir HTTP solo en local
+        if app.config["ENV"] == "development":
+            os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
+
+        # Redirect dinámico (ENV en Render)
+        REDIRECT_URI = os.getenv(
+            "GOOGLE_REDIRECT_URI",
+            "http://localhost:5000/auth/google/callback"
+        )
+
+        app.google_flow = Flow.from_client_secrets_file(
+            GOOGLE_CLIENT_SECRETS,
+            scopes=[
+                "openid",
+                "https://www.googleapis.com/auth/userinfo.email",
+                "https://www.googleapis.com/auth/userinfo.profile",
+            ],
+            redirect_uri=REDIRECT_URI
+        )
+
+    # ---------------------------
     # NAVBAR ACTIVO
-    # Función global que determina qué enlace está activo
-    # ---------------------------------------------------------
+    # ---------------------------
     @app.context_processor
     def utility_processor():
         def is_active(path):
             return "active" if request.path.rstrip("/") == path.rstrip("/") else ""
         return dict(is_active=is_active)
 
-
-    # ---------------------------------------------------------
-    # RUTA PRINCIPAL DEL PROYECTO (Landing Page)
-    # ---------------------------------------------------------
+    # ---------------------------
+    # LANDING PAGE
+    # ---------------------------
     @app.route("/")
     def home():
-        # Renderiza la página inicial ubicada en templates/landing/index.html
         return render_template("landing/index.html")
 
-    # ---------------------------------------------------------
-    # INYECCIÓN GLOBAL DE FECHA
-    # Permite mostrar el año actual en cualquier template
-    # ---------------------------------------------------------
+    # ---------------------------
+    # AÑO GLOBAL
+    # ---------------------------
     @app.context_processor
     def inject_year():
-        return {'current_year': datetime.now().year}
+        return {"current_year": datetime.now().year}
+
     return app
 
+
 # ---------------------------------------------------------
-# EJECUCIÓN PRINCIPAL DEL SERVIDOR
+# EJECUCIÓN LOCAL (Render no usa esto)
 # ---------------------------------------------------------
 if __name__ == "__main__":
     app = create_app()
