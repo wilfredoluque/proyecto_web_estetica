@@ -17,11 +17,16 @@ auth_bp = Blueprint('auth', __name__, url_prefix="/auth")
 os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 
 # Ruta del archivo google_client.json
-GOOGLE_CLIENT_SECRETS_FILE = os.path.join(
-    pathlib.Path(__file__).parent.parent,
-    "core",
-    "google_client.json"
-)
+if os.environ.get("RENDER") == "1":
+    # En Render
+    GOOGLE_CLIENT_SECRETS_FILE = "/etc/secrets/google_client.json"
+else:
+    # Local
+    GOOGLE_CLIENT_SECRETS_FILE = os.path.join(
+        pathlib.Path(__file__).parent.parent,
+        "core",
+        "google_client.json"
+    )
 
 # Configurar Google OAuth
 flow = Flow.from_client_secrets_file(
