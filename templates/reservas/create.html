@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block title %}Crear Reserva{% endblock %}
+
+{% block content %}
+
+<h2 class="fw-bold ">Crear Reserva</h2>
+
+<div class="card shadow-lg border-0 glass-card">
+    <div class="card-body p-4">
+
+        <form method="POST">
+
+            <div class="mb-3">
+                <label class="form-label">Cliente</label>
+                <select name="cliente_id" class="form-select form-select-lg select2" required>
+                    {% for c in clientes %}
+                    <option value="{{ c.id }}">{{ c.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Servicio</label>
+                <select name="servicio_id" class="form-select form-select-lg select2" required>
+                    {% for s in servicios %}
+                    <option value="{{ s.id }}">{{ s.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Empleado</label>
+                <select name="empleado_id" class="form-select form-select-lg select2" required>
+                    {% for e in empleados %}
+                    <option value="{{ e.id }}">{{ e.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Fecha</label>
+                <input type="date" name="fecha" class="form-control form-control-lg" required>
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label">Estado</label>
+                <select name="estado" class="form-select form-select-lg select2">
+                    <option value="Pendiente">Pendiente</option>
+                    <option value="Confirmada">Confirmada</option>
+                    <option value="Cancelada">Cancelada</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-lg shadow-sm rounded-pill px-4">
+                Guardar
+            </button>
+
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    $(document).ready(function() {
+        $('.select2').select2({
+            width: '100%',
+            placeholder: 'Seleccione...',
+            allowClear: true
+        });
+    });
+</script>
+{% endblock %}

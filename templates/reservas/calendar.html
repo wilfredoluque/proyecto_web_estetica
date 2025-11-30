@@ -1,0 +1,41 @@
+{% block extra_js %}
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.css" rel="stylesheet" />
+
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js"></script>
+
+<div id="calendar" style="background:rgb(177, 84, 84); padding:20px;"></div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+
+    var events = [
+        {% for r in reservas %}
+        {
+            title: "{{ r.servicio.nombre }} - {{ r.cliente.nombre }}",
+            start: "{{ r.fecha.strftime('%Y-%m-%d') }}",
+            url: "{{ url_for('reserva.edit', id=r.id) }}",
+            color: "{% if r.estado=='Pendiente' %}orange{% elif r.estado=='Confirmada' %}green{% else %}red{% endif %}"
+        },
+        {% endfor %}
+    ];
+
+    console.log("Eventos cargados:", events);
+
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        locale: 'es',
+        headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay'
+        },
+        events: events,
+        navLinks: true,
+        editable: false,
+        dayMaxEvents: true
+    });
+
+    calendar.render();
+});
+</script>
+{% endblock %}

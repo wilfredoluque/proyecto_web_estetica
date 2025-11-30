@@ -1,0 +1,138 @@
+/* ==========================
+   PALETA DE COLORES PREMIUM
+   ========================== */
+:root {
+    --sidebar-main: #4B0082;
+    --sidebar-hover: #6A0DAD;
+    --btn-primary: #6A0DAD;
+    --btn-primary-hover: #4B0082;
+    --btn-danger: #B30000;
+    --btn-danger-hover: #8B0000;
+    --acento: #FF1A4B;
+}
+
+/* ==========================
+   SIDEBAR
+   ========================== */
+.bg-gradient-primary {
+    background: var(--sidebar-main) !important;
+}
+
+.sidebar .nav-item .nav-link:hover {
+    background-color: var(--sidebar-hover) !important;
+}
+
+.sidebar .nav-item.active .nav-link {
+    background-color: var(--sidebar-hover) !important;
+}
+
+/* ==========================
+   BOTONES
+   ========================== */
+.btn-primary {
+    background-color: var(--btn-primary) !important;
+    border-color: var(--btn-primary) !important;
+}
+
+.btn-primary:hover {
+    background-color: var(--btn-primary-hover) !important;
+    border-color: var(--btn-primary-hover) !important;
+}
+
+.btn-danger {
+    background-color: var(--btn-danger) !important;
+    border-color: var(--btn-danger) !important;
+}
+
+.btn-danger:hover {
+    background-color: var(--btn-danger-hover) !important;
+    border-color: var(--btn-danger-hover) !important;
+}
+
+/* ==========================
+   FOOTER PREMIUM
+   ========================== */
+.sticky-footer {
+    background: linear-gradient(90deg, #4B0082, #6A0DAD);
+    padding: 20px 0;
+    border-top: 3px solid var(--acento);
+}
+
+.sticky-footer span {
+    color: white !important;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+/* ==========================
+   TOPBAR PREMIUM
+   ========================== */
+
+.topbar-premium {
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    padding: 12px 25px;
+}
+
+.topbar-user {
+    display: flex;
+    align-items: center;
+}
+
+.user-avatar i {
+    font-size: 38px;
+    color: var(--sidebar-main); /* #4B0082 */
+}
+
+.user-info {
+    line-height: 1.1;
+}
+
+.user-name {
+    font-weight: 700;
+    font-size: 15px;
+    color: #1f1f1f;
+    text-transform: capitalize;
+}
+
+.user-role {
+    font-size: 13px;
+    font-weight: 500;
+    color: #6A0DAD;  /* Paleta */
+}
+/* TOPBAR OSCURO PROFESIONAL */
+.topbar-dark-gradient {
+    background: linear-gradient(135deg, #0d1117 0%, #1f2937 100%) !important;
+    color: #e5e7eb !important;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+
+/* Texto del topbar */
+.topbar-dark-gradient .welcome-text {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #ffffff !important;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+}
+
+/* Rol (admin / empleado) */
+.topbar-dark-gradient .role-tag {
+    color: #9ca3af !important;
+    font-weight: 400;
+}
+.select2-container .select2-selection--single {
+    height: 38px !important;
+    padding: 5px 10px;
+    border-radius: 8px;
+    border: 1px solid #ced4da;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 38px !important;
+}
+
+.select2-search__field {
+    border-radius: 6px;
+}

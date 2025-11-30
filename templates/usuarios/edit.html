@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}Editar Usuario{% endblock %}
+
+{% block content %}
+
+<h2 class="fw-bold mb-4">Editar Usuario</h2>
+
+<div class="card shadow-lg border-0 glass-card">
+    <div class="card-body p-4">
+
+        <form method="POST">
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Nombre</label>
+                <input type="text" name="nombre" class="form-control form-control-lg"
+                        value="{{ usuario.nombre }}" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Email</label>
+                <input type="email" name="email" class="form-control form-control-lg"
+                        value="{{ usuario.email }}" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Contraseña (dejar vacío para no cambiar)</label>
+                <input type="password" name="password" class="form-control form-control-lg">
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label fw-semibold">Rol</label>
+                <select name="rol" class="form-select form-select-lg">
+                    <option value="empleado" {% if usuario.rol=='empleado' %}selected{% endif %}>Empleado</option>
+                    <option value="admin" {% if usuario.rol=='admin' %}selected{% endif %}>Administrador</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-success btn-lg shadow-sm">
+                <i class="bi bi-check-circle"></i> Actualizar
+            </button>
+
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}

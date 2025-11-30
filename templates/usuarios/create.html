@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}Crear Usuario{% endblock %}
+
+{% block content %}
+
+<h2 class="fw-bold mb-4">Crear Usuario</h2>
+
+<div class="card shadow-lg border-0 glass-card">
+    <div class="card-body p-4">
+
+        <form method="POST">
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Nombre</label>
+                <input type="text" name="nombre" class="form-control form-control-lg" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Email</label>
+                <input type="email" name="email" class="form-control form-control-lg" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Contraseña</label>
+                <input type="password" name="password" class="form-control form-control-lg" required>
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label fw-semibold">Rol</label>
+                <select name="rol" class="form-select form-select-lg">
+                    <option value="empleado">Empleado</option>
+                    <option value="admin">Administrador</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-lg shadow-sm">
+                <i class="bi bi-save"></i> Guardar
+            </button>
+
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}

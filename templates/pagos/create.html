@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block title %}Registrar Pago{% endblock %}
+
+{% block content %}
+
+<h2 class="fw-bold mb-4">Registrar Pago</h2>
+
+<div class="card shadow-lg p-4 border-0 glass-card">
+<form method="POST">
+
+    <div class="mb-3">
+        <label class="form-label fw-semibold">Servicio Realizado</label>
+        <select name="servicio_realizado_id"
+                id="servicio_realizado"
+                class="form-select rounded-pill select2"
+                required>
+
+            <option value="">Seleccione...</option>
+
+            {% for r in servicios_realizados %}
+            <option value="{{ r.id }}" data-precio="{{ '%.2f'|format(r.precio) }}">
+                {{ r.cliente.nombre }} - {{ r.servicio.nombre }} ({{ '%.2f'|format(r.precio) }} Bs)
+            </option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label fw-semibold">Monto (Bs)</label>
+        <input type="number" id="monto" class="form-control rounded-pill" readonly>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label fw-semibold">Descripción</label>
+        <input type="text" name="descripcion" class="form-control rounded-pill">
+    </div>
+
+    <button type="submit" class="btn btn-success rounded-pill px-4">
+        Guardar
+    </button>
+
+</form>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // === Activar Select2 ===
+    $('.select2').select2({
+        width: '100%',
+        placeholder: 'Seleccione...',
+        allowClear: true
+    });
+
+    // === Actualizar monto según el servicio ===
+    document.getElementById("servicio_realizado").addEventListener("change", function() {
+        const precio = parseFloat(this.selectedOptions[0].getAttribute("data-precio"));
+        document.getElementById("monto").value = precio.toFixed(2);
+    });
+</script>
+{% endblock %}

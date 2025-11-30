@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block title %}Editar Registro{% endblock %}
+{% block content %}
+<h2>Editar Registro</h2>
+<form method="POST">
+  <div class="mb-3">
+    <label>Cliente</label>
+    <select name="cliente_id" class="form-control" required>
+      {% for c in clientes %}
+      <option value="{{ c.id }}" {% if c.id == registro.cliente_id %}selected{% endif %}>{{ c.nombre }}</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <label>Servicio</label>
+    <select name="servicio_id" class="form-control" required>
+      {% for s in servicios %}
+      <option value="{{ s.id }}" {% if s.id == registro.servicio_id %}selected{% endif %}>{{ s.nombre }}</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <label>Empleado</label>
+    <select name="empleado_id" class="form-control">
+      <option value="">Sin asignar</option>
+      {% for e in empleados %}
+      <option value="{{ e.id }}" {% if registro.empleado_id == e.id %}selected{% endif %}>{{ e.nombre }}</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <label>Fecha</label>
+    <input type="date" name="fecha" class="form-control" value="{{ registro.fecha.strftime('%Y-%m-%d') }}">
+  </div>
+
+  <div class="mb-3">
+    <label>Estado</label>
+    <select name="estado" class="form-control">
+      <option {% if registro.estado=='Realizado' %}selected{% endif %}>Realizado</option>
+      <option {% if registro.estado=='Cancelado' %}selected{% endif %}>Cancelado</option>
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <label>Satisfacción</label>
+    <select name="satisfaccion" class="form-control">
+      <option {% if registro.satisfaccion=='Excelente' %}selected{% endif %}>Excelente</option>
+      <option {% if registro.satisfaccion=='Bueno' %}selected{% endif %}>Bueno</option>
+      <option {% if registro.satisfaccion=='Regular' %}selected{% endif %}>Regular</option>
+      <option {% if registro.satisfaccion=='Malo' %}selected{% endif %}>Malo</option>
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <label>Comentario</label>
+    <textarea name="comentario" class="form-control" rows="2">{{ registro.comentario }}</textarea>
+  </div>
+
+  <button class="btn btn-success">Actualizar</button>
+</form>
+{% endblock %}

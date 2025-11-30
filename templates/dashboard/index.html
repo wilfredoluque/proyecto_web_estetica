@@ -1,0 +1,204 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard — EstheticFlow{% endblock %}
+
+{% block content %}
+
+<style>
+    /* === Premium Dashboard Skin === */
+    .dashboard-title {
+        font-size: 2rem;
+        font-weight: 700;
+        background: linear-gradient(90deg, #b45cff, #6a5cff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .card-premium {
+        background: rgba(255,255,255,0.06);
+        border: 1px solid rgba(255,255,255,0.08);
+        backdrop-filter: blur(12px);
+        border-radius: 18px;
+        transition: .25s ease;
+        box-shadow: 0 0 18px rgba(0,0,0,0.4);
+    }
+
+    .card-premium:hover {
+        transform: scale(1.03);
+        box-shadow: 0 0 30px rgba(130,90,255,0.45);
+    }
+
+    .card-premium h6 {
+        color: #c9c9c9;
+        font-size: .9rem;
+    }
+
+    .card-premium h2 {
+        color: #fff;
+        font-size: 2.2rem;
+    }
+
+    /* Gráficos */
+    .chart-card {
+        background: rgba(255,255,255,0.05);
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 18px;
+        backdrop-filter: blur(12px);
+        box-shadow: 0 0 20px rgba(0,0,0,0.35);
+        transition: .25s ease;
+    }
+
+    .chart-card:hover {
+        transform: scale(1.02);
+        box-shadow: 0 0 30px rgba(160,120,255,0.45);
+    }
+</style>
+
+
+<h2 class="fw-bold mt-4" style="color:#111;">Dashboard</h2>
+
+
+<!-- CARDS PRINCIPALES -->
+<div class="row g-4 mt-2">
+
+    <div class="col-12 col-md-3" >
+        <div class="card-premium p-3">
+            <h6 >Clientes</h6>
+            <h2 style="color:#111;">{{ total_clientes }}</h2>
+        </div>
+    </div>
+
+    <div class="col-12 col-md-3">
+        <div class="card-premium p-3">
+            <h6>Servicios Realizados</h6>
+            <h2 style="color:#111;">{{ total_servicios_realizados }}</h2>
+        </div>
+    </div>
+
+    <div class="col-12 col-md-3">
+        <div class="card-premium p-3">
+            <h6>Ingresos</h6>
+            <h2 style="color:#111;">{{ total_ingresos | round(2)}} Bs</h2>
+        </div>
+    </div>
+
+    <div class="col-12 col-md-3">
+        <div class="card-premium p-3">
+            <h6>Pagos</h6>
+            <h2 style="color:#111;">{{ total_pagos | round(2)}} Bs</h2>
+        </div>
+    </div>
+
+</div>
+
+
+
+<!-- SECCIÓN DE GRÁFICOS -->
+<div class="row mt-5">
+
+    <div class="col-12 col-lg-6 mb-4">
+        <div class="chart-card p-3">
+            <canvas id="chartServicios"></canvas>
+        </div>
+    </div>
+
+    <div class="col-12 col-lg-6 mb-4">
+        <div class="chart-card p-3">
+            <canvas id="chartTorta"></canvas>
+        </div>
+    </div>
+
+    <div class="col-12 mb-4">
+        <div class="chart-card p-3">
+            <canvas id="chartLinea"></canvas>
+        </div>
+    </div>
+
+</div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+const clientes = {{ total_clientes }};
+const servicios = {{ total_servicios_realizados }};
+const ingresos = {{ total_ingresos }};
+const pagos = {{ total_pagos }};
+
+/* === Estilo Premium de ChartJS === */
+const neonColors = {
+    purple: "rgba(150, 80, 255, 0.9)",
+    cyan: "rgba(0, 230, 255, 0.9)",
+    pink: "rgba(255, 90, 200, 0.9)",
+    yellow: "rgba(255, 220, 0, 0.9)"
+};
+
+/* BARRAS */
+new Chart(document.getElementById('chartServicios'), {
+    type: 'bar',
+    data: {
+        labels: ['Clientes', 'Servicios', 'Ingresos', 'Pagos'],
+        datasets: [{
+            label: "Resumen Global",
+            data: [clientes, servicios, ingresos, pagos],
+            backgroundColor: [
+                neonColors.purple,
+                neonColors.cyan,
+                neonColors.pink,
+                neonColors.yellow
+            ],
+            borderWidth: 0
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: { legend: { labels: { color: "#ffffff" }} },
+        scales: {
+            y: { ticks: { color: "#fff" }},
+            x: { ticks: { color: "#fff" }}
+        }
+    }
+});
+
+/* TORTA */
+new Chart(document.getElementById('chartTorta'), {
+    type: 'pie',
+    data: {
+        labels: ['Clientes', 'Servicios', 'Ingresos', 'Pagos'],
+        datasets: [{
+            data: [clientes, servicios, ingresos, pagos],
+            backgroundColor: Object.values(neonColors),
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: { legend: { labels: { color: "#ffffff" }} }
+    }
+});
+
+/* LÍNEA */
+new Chart(document.getElementById('chartLinea'), {
+    type: 'line',
+    data: {
+        labels: ['Clientes', 'Servicios', 'Ingresos', 'Pagos'],
+        datasets: [{
+            label: "Actividad",
+            data: [clientes, servicios, ingresos, pagos],
+            borderColor: neonColors.purple,
+            backgroundColor: "rgba(150, 80, 255, 0.2)",
+            borderWidth: 3,
+            tension: .35
+        }]
+    },
+    options: {
+        plugins: { legend: { labels: { color: "#ffffff" }} },
+        scales: {
+            x: { ticks: { color: "#ffffff" }},
+            y: { ticks: { color: "#ffffff" }},
+        }
+    }
+});
+</script>
+
+{% endblock %}

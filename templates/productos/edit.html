@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %}Editar Producto{% endblock %}
+
+{% block content %}
+
+<h2 class="fw-bold mb-4">Editar Producto</h2>
+
+<div class="card shadow-lg p-4 border-0 glass-card">
+<form method="POST">
+
+    <div class="mb-3">
+        <label class="form-label">Nombre</label>
+        <input type="text" name="nombre" class="form-control rounded-pill"
+               value="{{ producto.nombre }}" required>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Descripción</label>
+        <input type="text" name="descripcion" class="form-control rounded-pill"
+               value="{{ producto.descripcion }}">
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Precio</label>
+        <input type="number" step="0.01" name="precio"
+               class="form-control rounded-pill"
+               value="{{ producto.precio }}" required>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Stock</label>
+        <input type="number" name="stock"
+               class="form-control rounded-pill"
+               value="{{ producto.stock }}" required>
+    </div>
+
+    <button type="submit" class="btn btn-success rounded-pill px-4">
+        <i class="bi bi-check-circle"></i> Actualizar
+    </button>
+
+</form>
+</div>
+
+{% endblock %}

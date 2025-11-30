@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% block title %}Registrar Servicio{% endblock %}
+{% block content %}
+
+<!-- Select2 CSS -->
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+<h2 class="fw-bold mb-4 text-white">Registrar Servicio</h2>
+
+<form method="POST">
+
+  <div class="mb-3">
+    <label>Cliente</label>
+    <select id="cliente" name="cliente_id" class="form-control form-select form-select-lg rounded-3 select2" required>
+      {% for c in clientes %}
+      <option value="{{ c.id }}">{{ c.nombre }}</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <label>Servicio</label>
+    <select id="servicio" name="servicio_id" class="form-control" required>
+      {% for s in servicios %}
+      <option value="{{ s.id }}">{{ s.nombre }}</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <label>Empleado</label>
+    <select id="empleado" name="empleado_id" class="form-control">
+      <option value="">Sin asignar</option>
+      {% for e in empleados %}
+      <option value="{{ e.id }}">{{ e.nombre }}</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <label>Fecha</label>
+    <input type="date" name="fecha" class="form-control">
+  </div>
+
+  <div class="mb-3">
+    <label>Estado</label>
+    <select name="estado" class="form-control">
+      <option>Realizado</option>
+      <option>Cancelado</option>
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <label>Satisfacción</label>
+    <select name="satisfaccion" class="form-control">
+      <option>Excelente</option>
+      <option selected>Bueno</option>
+      <option>Regular</option>
+      <option>Malo</option>
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <label>Comentario</label>
+    <textarea name="comentario" class="form-control" rows="2"></textarea>
+  </div>
+
+  <button class="btn btn-success">Guardar</button>
+
+</form>
+
+<!-- Select2 JS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<script>
+  $(document).ready(function () {
+      $('#cliente').select2({ width: '100%', placeholder: "Seleccionar cliente" });
+      $('#servicio').select2({ width: '100%', placeholder: "Seleccionar servicio" });
+      $('#empleado').select2({ width: '100%', placeholder: "Seleccionar empleado" });
+  });
+</script>
+
+
+{% endblock %}

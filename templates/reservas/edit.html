@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block title %}Editar Reserva{% endblock %}
+
+{% block content %}
+
+<h2 class="fw-bold mb-4 text-white">Editar Reserva</h2>
+
+<div class="card shadow-lg border-0 glass-card">
+    <div class="card-body p-4">
+
+        <form method="POST">
+
+            <div class="mb-3">
+                <label class="form-label fw-semibold text-white">Cliente</label>
+                <select name="cliente_id" class="form-select form-select-lg" required>
+                    {% for c in clientes %}
+                    <option value="{{ c.id }}" {% if c.id == reserva.cliente_id %}selected{% endif %}>
+                        {{ c.nombre }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-semibold text-white">Servicio</label>
+                <select name="servicio_id" class="form-select form-select-lg" required>
+                    {% for s in servicios %}
+                    <option value="{{ s.id }}" {% if s.id == reserva.servicio_id %}selected{% endif %}>
+                        {{ s.nombre }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-semibold text-white">Empleado</label>
+                <select name="empleado_id" class="form-select form-select-lg">
+                    {% for e in empleados %}
+                    <option value="{{ e.id }}" {% if e.id == reserva.empleado_id %}selected{% endif %}>
+                        {{ e.nombre }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-semibold text-white">Fecha</label>
+                <input type="date" name="fecha" class="form-control form-control-lg"
+                       value="{{ reserva.fecha.strftime('%Y-%m-%d') }}" required>
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label fw-semibold text-white">Estado</label>
+                <select name="estado" class="form-select form-select-lg">
+                    <option value="Pendiente" {% if reserva.estado=='Pendiente' %}selected{% endif %}>Pendiente</option>
+                    <option value="Confirmada" {% if reserva.estado=='Confirmada' %}selected{% endif %}>Confirmada</option>
+                    <option value="Cancelada" {% if reserva.estado=='Cancelada' %}selected{% endif %}>Cancelada</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-success btn-lg shadow-sm rounded-pill px-4">
+                <i class="bi bi-check-circle"></i> Actualizar
+            </button>
+
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}
