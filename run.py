@@ -26,8 +26,10 @@ from controllers.productividad_controller import productividad_bp
 from controllers.historial_cliente_controller import historial_bp
 
 
+# ---------------------------------------------------------
+# CREAR APP
+# ---------------------------------------------------------
 def create_app():
-
     app = Flask(__name__)
     app.config.from_object(Config)
 
@@ -53,24 +55,21 @@ def create_app():
     app.register_blueprint(historial_bp)
 
     # ---------------------------
-    # GOOGLE AUTH CONFIG — FINAL
+    # GOOGLE AUTH CONFIG — FINAL (comentado)
     # ---------------------------
-    """@app.before_request
+    """
+    @app.before_request
     def load_google_flow():
         from google_auth_oauthlib.flow import Flow
-
-        # Archivo secreto dentro de Render
         GOOGLE_CLIENT_SECRETS = "/etc/secrets/google_client.json"
 
         if not os.path.exists(GOOGLE_CLIENT_SECRETS):
             print("⚠ ERROR: google_client.json NO existe en Render")
             return
 
-        # Permitir HTTP solo en local
         if app.config["ENV"] == "development":
             os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 
-        # Redirect dinámico (ENV en Render)
         REDIRECT_URI = os.getenv(
             "GOOGLE_REDIRECT_URI",
             "http://localhost:5000/auth/google/callback"
@@ -85,7 +84,7 @@ def create_app():
             ],
             redirect_uri=REDIRECT_URI
         )
-        """
+    """
 
     # ---------------------------
     # NAVBAR ACTIVO
@@ -114,10 +113,15 @@ def create_app():
 
 
 # ---------------------------------------------------------
-# EJECUCIÓN LOCAL (Render no usa esto)
+# EXPOSE APP PARA GUNICORN
+# ---------------------------------------------------------
+app = create_app()
+with app.app_context():
+    db.create_all()
+
+
+# ---------------------------------------------------------
+# EJECUCIÓN LOCAL
 # ---------------------------------------------------------
 if __name__ == "__main__":
-    app = create_app()
-    with app.app_context():
-        db.create_all()
     app.run(debug=True)
