@@ -94,9 +94,6 @@ h2 {
     background: #1f1f1f;
     color: white;
     padding: 1.2rem 0.5rem;
-    position: fixed;
-    top: 0;
-    left: 0;
 }
 
 .sidebar .logo {
@@ -277,4 +274,9 @@ h2.display-6 {
 .user-avatar i {
     font-size: 32px;
     color: #555;
+}
+/* FIX OFICIAL PARA SB ADMIN 2 */
+.sidebar {
+    position: relative !important;
+    height: auto !important;
 }

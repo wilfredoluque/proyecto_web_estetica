@@ -58,6 +58,7 @@ def create_app():
     # GOOGLE AUTH CONFIG — FINAL (comentado)
     # ---------------------------
     """
+    
     @app.before_request
     def load_google_flow():
         from google_auth_oauthlib.flow import Flow
@@ -85,6 +86,7 @@ def create_app():
             redirect_uri=REDIRECT_URI
         )
     """
+
 
     # ---------------------------
     # NAVBAR ACTIVO

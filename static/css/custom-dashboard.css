@@ -90,3 +90,7 @@ footer {
         font-size: 1.7rem;
     }
 }
+#sidebar {
+    position: relative !important;
+    height: auto !important;
+}
