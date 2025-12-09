@@ -88,13 +88,6 @@ h2 {
 /* =========================
    Sidebar
    ========================= */
-.sidebar {
-    width: 220px;
-    height: 100vh;
-    background: #1f1f1f;
-    color: white;
-    padding: 1.2rem 0.5rem;
-}
 
 .sidebar .logo {
     font-size: 1.3rem;
@@ -279,4 +272,8 @@ h2.display-6 {
 .sidebar {
     position: relative !important;
     height: auto !important;
+}
+#accordionSidebar {
+    height: auto !important;
+    position: relative !important;
 }
