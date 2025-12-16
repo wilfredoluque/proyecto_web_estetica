@@ -2,60 +2,60 @@
    MODO CLARO (DEFAULT)
 ============================ */
 
-/* Sidebar */
-#sidebar {
-    background: #4B0082 !important;
-}
-#sidebar .nav-link:hover {
-    background: #6A0DAD !important;
-    color: #fff !important;
+/* SIDEBAR (SOLO COLORES, NO ESTRUCTURA) */
+.sidebar {
+    background: #4B0082;
 }
 
-/* Topbar */
-#topbar {
-    background: #ffffff !important;
+.sidebar .nav-link:hover {
+    background: #6A0DAD;
+    color: #fff;
+}
+
+/* TOPBAR */
+.topbar {
+    background: #ffffff;
     border-bottom: 1px solid #e5e5e5;
 }
 
-/* Botones */
+/* BOTONES */
 .btn-primary {
-    background: #6A0DAD !important;
-    border-color: #6A0DAD !important;
-}
-.btn-danger {
-    background: #B30000 !important;
-    border-color: #B30000 !important;
-}
-.btn-accent {
-    background: #FF1A4B !important;
-    border-color: #FF1A4B !important;
+    background: #6A0DAD;
+    border-color: #6A0DAD;
 }
 
-/* Contenido */
+.btn-danger {
+    background: #B30000;
+    border-color: #B30000;
+}
+
+.btn-accent {
+    background: #FF1A4B;
+    border-color: #FF1A4B;
+}
+
+/* CONTENIDO */
 body,
 .content-wrapper {
-    background: #ffffff !important;
+    background: #ffffff;
     color: #000;
 }
 
-/* Footer */
-footer {
+/* FOOTER */
+footer,
+.sticky-footer {
     background: linear-gradient(180deg, #4B0082, #6A0DAD);
-    color: white !important;
-    padding: 25px 0;
-    margin-top: 20px;
+    color: #fff;
+    padding: 20px 0;
     text-align: center;
-    font-size: 14px;
 }
 
-
-
-/* ==== CARDS PREMIUM + TIPOGRAFÍA NEGRA ==== */
+/* CARDS */
 .card {
-    background: #ffffff !important;
-    border-radius: 18px !important;
-    border: none !important;
-    color: #111 !important;
+    background: #ffffff;
+    border-radius: 18px;
+    border: none;
+    color: #111;
     box-shadow: 0 4px 10px rgba(0,0,0,0.08);
     transition: all .25s ease;
 }
@@ -65,32 +65,28 @@ footer {
     box-shadow: 0 8px 18px rgba(0,0,0,0.12);
 }
 
-.card h2, 
-.card h3, 
-.card h4, 
-.card h5, 
+.card h2,
+.card h3,
+.card h4,
+.card h5,
 .card h6,
 .card p {
-    color: #111 !important;
+    color: #111;
 }
 
-/* ==== TEXTOS DE ESTADÍSTICAS GRANDES ==== */
 .card h2 {
     font-weight: 800;
     font-size: 2rem;
 }
 
-/* ==== RESPONSIVE ==== */
+/* RESPONSIVE */
 @media (max-width: 768px) {
     .card {
-        border-radius: 14px !important;
-        padding: 12px !important;
+        border-radius: 14px;
+        padding: 12px;
     }
+
     .card h2 {
-        font-size: 1.7rem;
+        font-size: 1.6rem;
     }
-}
-#sidebar {
-    position: relative !important;
-    height: auto !important;
 }

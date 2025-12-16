@@ -1,103 +1,43 @@
 /* =========================
-   Glassmorphism para tarjetas
-   ========================= */
-.glass-card {
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    border-radius: 1rem;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.glass-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 25px rgba(0,0,0,0.3);
-}
-
-/* =========================
-   Tabla
-   ========================= */
-.table-hover tbody tr:hover {
-    background-color: rgba(255,255,255,0.2) !important;
-    cursor: pointer;
-}
-
-.table th, .table td {
-    vertical-align: middle !important;
-}
-
-/* =========================
-   Botones
-   ========================= */
-a.btn, button.btn {
+   EFECTOS GENERALES
+========================= */
+a.btn,
+button.btn {
     transition: all 0.3s ease;
     border-radius: 50px;
 }
 
-a.btn:hover, button.btn:hover {
+a.btn:hover,
+button.btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 12px rgba(0,0,0,0.2);
 }
 
-/* =========================
-   Fondo global
-   ========================= */
-body {
-    background: linear-gradient(135deg, #4c6ef5, #7950f2);
-    font-family: 'Roboto', sans-serif;
-    transition: background 0.5s ease, color 0.5s ease;
+/* TABLAS */
+.table-hover tbody tr:hover {
+    background-color: rgba(0,0,0,0.04);
+    cursor: pointer;
 }
 
-body.light-mode {
-    background-color: #f8f9fa;
-    color: #212529;
+.table th,
+.table td {
+    vertical-align: middle;
 }
 
-body.dark-mode {
-    background-color: #121212;
-    color: #f8f9fa;
-}
-
-/* =========================
-   Textos
-   ========================= */
-h2 {
-    color: #fff;
-    font-weight: 700;
-    margin-bottom: 1.5rem;
-}
-
-/* =========================
-   Badges
-   ========================= */
+/* BADGES */
 .badge {
     font-weight: 500;
-    font-size: 0.9rem;
 }
 
-/* =========================
-   Formularios
-   ========================= */
-.form-control, .form-select {
+/* FORMULARIOS */
+.form-control,
+.form-select {
     border-radius: 0.5rem;
 }
 
-/* =========================
-   Sidebar
-   ========================= */
-
-.sidebar .logo {
-    font-size: 1.3rem;
-    font-weight: bold;
-    padding: 0.8rem;
-    text-align: center;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-    margin-bottom: 1rem;
-}
-
+/* SIDEBAR (NO TOCAR POSITION NI HEIGHT) */
 .sidebar a {
-    color: #cfcfcf;
+    color: #e0e0e0;
     text-decoration: none;
     padding: 0.75rem 1rem;
     display: flex;
@@ -113,109 +53,25 @@ h2 {
 .sidebar a.active {
     background: rgba(255,255,255,0.15);
     color: #fff;
-    transform: translateX(5px);
 }
 
-/* =========================
-   TOPBAR NUEVO
-   ========================= */
-.topbar {
-    height: 65px;
-    background: #f8f9fa;
-    border-bottom: 1px solid #e2e2e2;
-    margin-left: 220px;
-    position: fixed;
-    top: 0;
-    right: 0;
-    left: 220px;
-    z-index: 10;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 1.5rem;
-}
-
-.topbar .logo {
-    font-size: 1.3rem;
-    font-weight: 700;
-}
-
-.search-box input {
-    width: 260px;
-    border-radius: 30px;
-    padding: .45rem 1rem;
-    border: none;
-    outline: none;
-}
-
-.avatar-box {
-    background: #e9ecef;
-    padding: 6px 10px;
-    border-radius: 40px;
-}
-
-.user-info {
-    font-weight: 700;
-    font-size: 0.95rem;
-}
-
-.topbar span {
-    font-size: 1rem;
-    color: #000;
-}
-
-@media (max-width: 767px) {
-    .topbar {
-        margin-left: 0;
-        flex-direction: column;
-        height: auto;
-        padding: 1rem;
-        gap: 10px;
-    }
-
-    .search-box input {
-        width: 100%;
-    }
-}
-
-/* =========================
-   CONTENIDO
-   ========================= */
-
-/* =========================
-   DASHBOARD CARDS
-   ========================= */
+/* DASHBOARD CARDS */
 .card-animate {
     transition: 0.25s ease;
 }
 
 .card-animate:hover {
-    transform: translateY(-7px);
-    box-shadow: 0px 12px 28px rgba(0,0,0,0.20);
+    transform: translateY(-6px);
+    box-shadow: 0px 12px 28px rgba(0,0,0,0.18);
 }
 
-.bg-gradient-primary { background: linear-gradient(135deg, #007bff, #00c6ff); }
-.bg-gradient-success { background: linear-gradient(135deg, #28a745, #7dffb2); }
-.bg-gradient-warning { background: linear-gradient(135deg, #ffc107, #ffe57f); }
-.bg-gradient-info    { background: linear-gradient(135deg, #17a2b8, #74e5ff); }
-
-.card-title {
-    font-weight: 600 !important;
+/* TITULOS */
+h2 {
+    font-weight: 700;
+    margin-bottom: 1.5rem;
 }
 
-h2.display-6 {
-    font-size: 2rem;
-}
-
-@media (max-width: 767px) {
-    h2.display-6 {
-        font-size: 1.5rem;
-    }
-}
-
-/* =========================
-   Dashboard panel
-   ========================= */
+/* PANEL */
 .dashboard-panel {
     background: linear-gradient(135deg, #ff4d4d, #ff9999);
     color: #fff;
@@ -223,50 +79,19 @@ h2.display-6 {
     border-radius: 1rem;
     text-align: center;
     margin-bottom: 2rem;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
 }
 
-.dashboard-panel h1 {
-    font-size: 2.5rem;
-    font-weight: 800;
-}
-
-.dashboard-panel p {
-    font-size: 1.2rem;
-}
-
+/* RESPONSIVE MOBILE */
 @media (max-width: 767px) {
-    .dashboard-panel h1 { font-size: 1.8rem; }
-    .dashboard-panel p { font-size: 1rem; }
-}
-/* ==== TOPBAR MÁS PREMIUM ==== */
-.topbar-premium {
-    background: #ffffff;
-    border-bottom: 1px solid rgba(0,0,0,0.06);
-    padding: 10px 20px;
-}
+    h2 {
+        font-size: 1.4rem;
+    }
 
-.topbar-user .user-name {
-    font-weight: 700;
-    color: #111 !important;
-}
+    .dashboard-panel h1 {
+        font-size: 1.8rem;
+    }
 
-.topbar-user .user-role {
-    font-size: 0.8rem;
-    color: #444 !important;
-}
-
-/* Avatar */
-.user-avatar i {
-    font-size: 32px;
-    color: #555;
-}
-/* FIX OFICIAL PARA SB ADMIN 2 */
-.sidebar {
-    position: relative !important;
-    height: auto !important;
-}
-#accordionSidebar {
-    height: auto !important;
-    position: relative !important;
+    .dashboard-panel p {
+        font-size: 1rem;
+    }
 }

@@ -1,40 +1,65 @@
 {% extends 'base.html' %}
 {% block title %}Productividad{% endblock %}
+
 {% block content %}
 
 <h2 class="fw-bold mb-4">Productividad del Empleado</h2>
-<a href="{{ url_for('productividad.create') }}" class="btn btn-primary mb-3">Nuevo Registro</a>
-<table class="table table-hover table-dark rounded-3 overflow-hidden">
-<thead class="table-primary text-dark">
-<tr>
-    <th>Fecha</th>
-    <th>Empleado</th>
-    <th>Clientes atendidos</th>
-    <th>Ventas</th>
-    <th>Horas trabajadas</th>
-    <th>Observación</th>
-    <th>Acciones</th>
-</tr>
-</thead>
 
-<tbody>
-{% for r in registros %}
-<tr>
-    <td>{{ r.fecha.strftime('%Y-%m-%d') }}</td>
-    <td>{{ r.empleado.nombre }}</td>
-    <td>{{ r.clientes_atendidos }}</td>
-    <td>{{ '%.2f'|format(r.ventas_realizadas) }}</td>
-    <td>{{ r.horas_trabajadas }}</td>
-    <td>{{ r.observacion }}</td>
-    <td>
-                <a href="{{ url_for('productividad.edit', id=r.id) }}" class="btn btn-warning btn-sm">Editar</a>
-                {% if session.get('usuario_rol') == 'admin' %}
-                <a href="{{ url_for('productividad.delete', id=r.id) }}" class="btn btn-danger btn-sm">Eliminar</a>
-                {% endif %}
-            </td>
-</tr>
-{% endfor %}
-</tbody>
-</table>
+<a href="{{ url_for('productividad.create') }}"
+   class="btn btn-primary mb-4 shadow-sm rounded-pill">
+    Nuevo Registro
+</a>
+
+<div class="card shadow-lg border-0 glass-card">
+    <div class="card-body">
+
+        <!-- SCROLL HORIZONTAL -->
+        <div class="table-responsive">
+            <table id="tablaProductividad"
+                   class="table table-hover align-middle text-center text-dark w-100">
+
+                <thead class="table-primary text-dark">
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Empleado</th>
+                        <th>Clientes atendidos</th>
+                        <th>Ventas</th>
+                        <th>Horas trabajadas</th>
+                        <th>Observación</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for r in registros %}
+                    <tr>
+                        <td>{{ r.fecha.strftime('%Y-%m-%d') }}</td>
+                        <td>{{ r.empleado.nombre }}</td>
+                        <td>{{ r.clientes_atendidos }}</td>
+                        <td>{{ '%.2f'|format(r.ventas_realizadas) }}</td>
+                        <td>{{ r.horas_trabajadas }}</td>
+                        <td class="text-start">{{ r.observacion }}</td>
+                        <td>
+                            <a href="{{ url_for('productividad.edit', id=r.id) }}"
+                               class="btn btn-warning btn-sm rounded-pill me-1">
+                                Editar
+                            </a>
+                            {% if session.get('usuario_rol') == 'admin' %}
+                            <a href="{{ url_for('productividad.delete', id=r.id) }}"
+                               class="btn btn-danger btn-sm rounded-pill"
+                               onclick="return confirm('¿Eliminar este registro?')">
+                                Eliminar
+                            </a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+
+            </table>
+        </div>
+
+    </div>
+</div>
 
 {% endblock %}

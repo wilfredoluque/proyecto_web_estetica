@@ -1,64 +1,72 @@
 {% extends 'base.html' %}
-
 {% block title %}Inventario{% endblock %}
 
 {% block content %}
 
 <h2 class="fw-bold mb-4">Inventario</h2>
 
-<a href="{{ url_for('inventario.create') }}" 
+<a href="{{ url_for('inventario.create') }}"
    class="btn btn-light mb-4 text-primary shadow-sm rounded-pill">
-   <i class="bi bi-plus-circle"></i> Agregar Inventario
+    <i class="bi bi-plus-circle"></i> Agregar Inventario
 </a>
 
 <div class="card shadow-lg border-0 glass-card">
     <div class="card-body">
 
-        <table id="tablaUsuarios" class="table table-striped table-hover align-middle text-center text-dark" style="width:100%">
-            <thead class="table-dark">
-                <tr>
-                    <th>ID</th>
-                    <th>Producto</th>
-                    <th>Cantidad</th>
-                    <th>Ubicación</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
+        <div class="table-responsive">
+            <table id="tablaInventario"
+                   class="table table-striped table-hover align-middle text-center text-dark w-100">
 
-            <tbody>
-                {% for i in inventarios %}
-                <tr>
-                    <td>{{ i.id }}</td>
-                    <td class="fw-semibold">{{ i.producto.nombre }}</td>
-                    <td>{{ i.cantidad }}</td>
-                    <td>{{ i.ubicacion }}</td>
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Ubicación</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
 
-                    <td>
-                        {% if session.get('usuario_rol') == 'admin' %}
+                <tbody>
+                    {% for i in inventarios %}
+                    <tr>
+                        <td>{{ i.id }}</td>
+                        <td class="fw-semibold">{{ i.producto.nombre }}</td>
+                        <td>{{ i.cantidad }}</td>
+                        <td>{{ i.ubicacion }}</td>
+                        <td>
+                            {% if session.get('usuario_rol') == 'admin' %}
+                            <a href="{{ url_for('inventario.edit', id=i.id) }}"
+                               class="btn btn-warning btn-sm rounded-pill px-3 me-2">
+                                Editar
+                            </a>
+                            <a href="{{ url_for('inventario.delete', id=i.id) }}"
+                               class="btn btn-danger btn-sm rounded-pill px-3"
+                               onclick="return confirm('¿Seguro que deseas eliminar este registro?')">
+                                Eliminar
+                            </a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
 
-                        <a href="{{ url_for('inventario.edit', id=i.id) }}"
-                           class="btn btn-warning btn-sm rounded-pill px-3 me-2">
-                           <i class="bi bi-pencil-square"></i>Editar
-                        </a>
-
-                        <a href="{{ url_for('inventario.delete', id=i.id) }}"
-                           class="btn btn-danger btn-sm rounded-pill px-3"
-                           onclick="return confirm('¿Seguro que deseas eliminar este registro?')">
-                           <i class="bi bi-trash3"></i>Eliminar
-                        </a>
-
-                        {% endif %}
-                    </td>
-
-                </tr>
-                {% endfor %}
-            </tbody>
-
-        </table>
+            </table>
+        </div>
 
     </div>
 </div>
+
 {% endblock %}
+
 {% block extra_js %}
-<script src="/static/js/usuarios_datatable.js"></script>
+<script>
+$(document).ready(function () {
+    $('#tablaInventario').DataTable({
+        responsive: false,
+        scrollX: true,
+        autoWidth: false
+    });
+});
+</script>
 {% endblock %}
